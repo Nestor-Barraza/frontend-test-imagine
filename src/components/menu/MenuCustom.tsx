@@ -1,4 +1,4 @@
-import { useState, FC } from 'react';
+import { FC } from 'react';
 import {
   Icon,
   Menu
@@ -10,20 +10,20 @@ const AlertComponent: FC = (): JSX.Element => {
 
 
   return (
-        <>
-            <Menu.Item as='a'>
-              <Icon name='home' />
-              Casa
-            </Menu.Item>
-            <Menu.Item as='a'>
-              <Icon name='gamepad' />
-              Games
-            </Menu.Item>
-            <Menu.Item as='a'>
-              <Icon name='camera' />
-              Channels
-            </Menu.Item>
-          </>
+    <>
+      <Menu.Item as='a'>
+        <Icon name='home' />
+        Casa
+      </Menu.Item>
+      <Menu.Item as='a'>
+        <Icon name='gamepad' />
+        Games
+      </Menu.Item>
+      <Menu.Item as='a'>
+        <Icon name='camera' />
+        Channels
+      </Menu.Item>
+    </>
   );
 }
 

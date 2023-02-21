@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
+import { FC } from 'react'
 import { Message } from "semantic-ui-react";
 import { useSelector } from "react-redux";
 import { RootState } from "src/app/store";
-const AlertComponent = () => {
+
+const AlertComponent: FC = (): JSX.Element => {
 
 
   //Redux state
@@ -11,14 +12,14 @@ const AlertComponent = () => {
   }: {
     alert: {
       alertContent: {
-        isVisibleAlert:boolean,
+        isVisibleAlert: boolean,
         type: string;
         severity: string;
         message: string;
       };
     }
   } = useSelector((state: RootState) => state);
-  
+
 
   return (
     <>
