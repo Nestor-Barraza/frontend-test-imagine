@@ -1,8 +1,15 @@
-import Home from './Home/index'
-import Galery from './Galery/index'
-
+import Home from "./Home";
+import Galery from "./Galery";
+import SignIn from "./SignIn";
+import SignUp from "./SignUp";
+import { GeneralEventsReducer, logOutAction } from "./redux";
 
 export {
-    Home,
-    Galery
-}
+  Home,
+  Galery,
+  SignIn,
+  SignUp,
+  //Redux
+  GeneralEventsReducer,
+  logOutAction
+};

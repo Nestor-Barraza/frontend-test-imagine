@@ -1,7 +1,4 @@
-import Constants from 'src/utils/constants'
-import S3 from 'src/utils/config-bucket'
+import { ApiFetch } from "./axiosConfig";
+import Constants from "./constants";
 
-export {
-    Constants,
-    S3
-}
+export { Constants, ApiFetch };

@@ -11,3 +11,16 @@
     height: 400px;
     border-radius: 1%;
   }
+
+  .container-title{
+    text-align: center;
+  }
+
+  .drag-icon{
+    cursor: grab;
+    margin-top: 17px;
+    margin-left: 5px;
+  }
+  .drag-icon:active{
+    cursor: grabbing;
+  }
