@@ -1,9 +1,68 @@
 //Libs
 
 import { ApiFetch } from "src/utils/";
-import { getCredentials } from "./generalEventsSlice";
+import {
+  getCredentials,
+  getEnterprises,
+  getProduct,
+} from "./generalEventsSlice";
 import { store } from "src/app/store";
-import { showAlertAction } from "src/components";
+
+//[Private layout]
+
+//Get enterprise
+export const getEnterprisesAction = async () => {
+  try {
+    const { data } = await ApiFetch.get("/enterprise/");
+
+    store.dispatch(getEnterprises({ enterprises: data }));
+  } catch (error) {
+    console.log(error);
+  }
+};
+//Get enterprise
+export const getProductAction = async (NIT: string) => {
+  try {
+    const {
+      data: { description, enterpriseNIT, price, title, unitsAvailable },
+    } = await ApiFetch.get(`/product/${NIT}`);
+    //Push product info
+    store.dispatch(
+      getProduct({ description, enterpriseNIT, price, title, unitsAvailable })
+    );
+  } catch (error) {
+    console.log(error);
+  }
+};
+//Log out
+export const logOutAction = async () => {
+  try {
+    localStorage.removeItem("access_token");
+    localStorage.removeItem("refresh_token");
+  } catch (error) {
+    console.log(error);
+  }
+};
+//Get token
+export const getTokenBody = (token: any) => {
+  if (token) {
+    const payloadBase64 = token.split(".")[1];
+    const payloadJson = atob(payloadBase64);
+    const payload = JSON.parse(payloadJson);
+    console.log(payload);
+    //Push credentials
+    store.dispatch(
+      getCredentials({
+        email: payload.email,
+        full_name: payload.full_name,
+        phone: payload.phone,
+        role: payload.role,
+      })
+    );
+  }
+};
+
+//[Public layout]
 
 //sign in
 export const signInAction = async (email: string, password: string) => {
@@ -15,20 +74,60 @@ export const signInAction = async (email: string, password: string) => {
       password,
     });
     //Push credentials
-    store.dispatch(getCredentials({ access_token, refresh_token }));
 
+    localStorage.setItem("access_token", access_token);
+    localStorage.setItem("refresh_token", refresh_token);
+    //Decode token
+    getTokenBody(access_token);
     return true;
   } catch (error) {
-    showAlertAction(error, "error");
+    console.log(error);
     return false;
   }
 };
-//Log out
-export const logOutAction = async () => {
+export const signUpAction = async (
+  full_name: string,
+  role: string,
+  phone: string,
+  email: string,
+  password: string
+) => {
   try {
-    //Push credentials
-    store.dispatch(getCredentials({ access_token: "", refresh_token: "" }));
+    const response = await ApiFetch.post("/sign-up", {
+      full_name,
+      role,
+      phone,
+      email,
+      password,
+    });
+    console.log(response);
+    return true;
   } catch (error) {
     console.log(error);
+
+    return false;
   }
+};
+
+//Formater price
+export const formaterMoney = (price: number) => {
+  return price.toLocaleString("es-CO", { style: "currency", currency: "COP" });
+};
+
+export const formatPhoneNumber = (phoneNumber: string) => {
+  // Remove all non-numeric characters from the phone number
+  const numericPhoneNumber = phoneNumber.replace(/\D/g, "");
+
+  // Check if the phone number length is correct
+  if (numericPhoneNumber.length !== 10) {
+    throw new Error("Invalid phone number");
+  }
+
+  // Divide the phone number into its corresponding parts
+  const areaCode = numericPhoneNumber.substring(0, 3);
+  const firstPart = numericPhoneNumber.substring(3, 6);
+  const secondPart = numericPhoneNumber.substring(6, 10);
+
+  // Return the formatted phone number
+  return `(${areaCode}) ${firstPart}-${secondPart}`;
 };

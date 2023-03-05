@@ -1,0 +1,84 @@
+.error-page {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: linear-gradient(to right, #194b58, #33064b96);
+  z-index: -1;
+  animation: background-anim 20s linear infinite;
+}
+
+@keyframes background-anim {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 4000px 0;
+  }
+}
+
+.error-container {
+  position: relative;
+  z-index: 1;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.error-header {
+  font-size: 72px;
+  font-weight: bold;
+  color: #ffffff;
+  text-shadow: 2px 2px 0 #000000;
+  margin-bottom: 60px;
+  animation: text-anim 2s ease-in-out forwards;
+}
+
+@keyframes text-anim {
+  0% {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.error-message {
+  font-size: 24px;
+  color: #ffffff;
+  text-shadow: 2px 2px 0 #000000;
+  margin-bottom: 80px;
+  animation: text-anim 2s ease-in-out forwards 0.5s;
+  text-align: center;
+}
+
+.error-link {
+  display: inline-block;
+  font-size: 18px;
+  color: #ffffff;
+  background-color: #000000;
+  padding: 16px 32px;
+  border-radius: 50px;
+  text-decoration: none;
+  text-shadow: 2px 2px 0 #000000;
+  transition: all 0.3s ease-in-out;
+  animation: text-anim 2s ease-in-out forwards 1s;
+}
+
+.error-link:hover {
+  transform: scale(1.1);
+  background-color: #ffffff;
+  color: #000000;
+  text-shadow: none;
+}

@@ -1,26 +1,22 @@
 //Libs
 
-import { showAlert } from "./alertSlice";
+import { showNotification } from "./notificationSlice";
 import { store } from "src/app/store";
 
 //Open confirm
-export const showAlertAction = (error: any, severity: string) => {
+export const showNotificationAction = (error: any) => {
   // Show alert
   store.dispatch(
-    showAlert({
-      isVisibleAlert: true,
+    showNotification({
       type: error.code,
-      severity,
       message: error.message,
     })
   );
   // Hidden alert
   setTimeout(() => {
     store.dispatch(
-      showAlert({
-        isVisibleAlert: false,
+      showNotification({
         type: "",
-        severity: "",
         message: "",
       })
     );

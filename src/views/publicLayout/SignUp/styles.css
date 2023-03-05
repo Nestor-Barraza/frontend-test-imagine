@@ -1,0 +1,14 @@
+.form-select{
+    margin-top: 10px !important;
+    margin-bottom: 10px !important;
+    padding-left: 7px;
+}
+
+.form-select-input {
+    width: 87.5%;
+}
+.form-select-icon {
+   display: flex;
+   justify-content: center;
+   transform: translateX(5px) translateY(5.5px);
+}

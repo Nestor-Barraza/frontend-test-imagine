@@ -1,15 +1,28 @@
-import Home from "./Home";
-import Galery from "./Galery";
-import SignIn from "./SignIn";
-import SignUp from "./SignUp";
-import { GeneralEventsReducer, logOutAction } from "./redux";
-
+import { Home, Profile, Details } from "./privateLayout";
+import { SignIn, SignUp } from "./publicLayout";
+import {
+  GeneralEventsReducer,
+  logOutAction,
+  signUpAction,
+  signInAction,
+  getProductAction,
+  formaterMoney,
+  formatPhoneNumber
+} from "./redux";
 export {
+  //Private layout
   Home,
-  Galery,
+  Profile,
+  Details,
+  //Public layout
   SignIn,
   SignUp,
   //Redux
   GeneralEventsReducer,
-  logOutAction
+  logOutAction,
+  signUpAction,
+  signInAction,
+  getProductAction,
+  formaterMoney,
+  formatPhoneNumber
 };

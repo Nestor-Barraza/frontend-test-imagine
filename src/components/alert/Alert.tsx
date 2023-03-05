@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Icon, Message } from "semantic-ui-react";
+import { Message } from "semantic-ui-react";
 import { useSelector } from "react-redux";
 import { RootState } from "src/app/store";
 
@@ -7,7 +7,7 @@ const AlertComponent: FC = (): JSX.Element => {
   //Redux state
   const {
     alert: {
-      alertContent: { isVisibleAlert, type, severity, message },
+      alertContent: { isVisibleAlert, type, message },
     },
   }: {
     alert: {

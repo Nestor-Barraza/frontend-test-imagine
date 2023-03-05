@@ -1,36 +1,45 @@
+import PrivateLayout from "./privateLayout";
+import PublicLayout from "./publicLayout";
 import { FC, useEffect } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { Constants } from "src/utils/";
-import { Home, Galery, SignIn, SignUp } from "src/views";
-import { useSelector } from "react-redux";
-import { RootState } from "src/app/store";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { Constants, View404 } from "src/utils/";
+import { Home, Profile, Details, SignIn, SignUp } from "src/views";
+import { NotificationCustom } from "src/components";
+import { getTokenBody } from "src/views/redux/generalEventsAction";
 
 const RouterApp: FC = (): JSX.Element => {
-  //Redux state
-  const {
-    general_events: {
-      user_credentials: { access_token },
-    },
-  }: {
-    general_events: { user_credentials: { access_token: string } };
-  } = useSelector((state: RootState) => state);
+  //Request Auth
+  const RequireAuth = (children: JSX.Element) => {
+    const redirectUrl = Constants.SIGNIN;
+    //Redirect
+    if (
+      !localStorage.getItem("access_token") &&
+      window.location.pathname !== Constants.SIGNIN
+    )
+      return <Navigate to={redirectUrl} />;
+    return children;
+  };
 
   useEffect(() => {
-    if (!access_token && window.location.pathname !== Constants.SIGNIN) {
-      window.location.href = Constants.SIGNIN;
-    }
+    getTokenBody(localStorage.getItem("access_token"));
   }, []);
-
-
 
   return (
     <BrowserRouter>
+      <NotificationCustom />
       <Routes>
-        <Route index element={<Home />} />
-        <Route path={Constants.GALERY} element={<Galery />} />
-        <Route path={Constants.SIGNUP} element={<SignUp />} />
-        <Route path={Constants.SIGNIN} element={<SignIn />} />
-        <Route path="*" element={<>404 Not Found!</>} />
+        {/* Private routes */}
+        <Route path={Constants.HOME} element={<PrivateLayout />}>
+          <Route index element={RequireAuth(<Home />)} />
+          <Route path={Constants.PROFILE} element={<Profile />} />
+          <Route path={Constants.DETAILS} element={<Details />} />
+        </Route>
+        {/* Public routes */}
+        <Route path={Constants.HOME} element={<PublicLayout />}>
+          <Route path={Constants.SIGNUP} element={<SignUp />} />
+          <Route path={Constants.SIGNIN} element={<SignIn />} />
+          <Route path="*" element={<View404 />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );

@@ -1,0 +1,13 @@
+.key-card{
+  text-decoration: solid;
+  color: rgb(21, 130, 194);
+}
+.key-card-title{
+  text-decoration: solid;
+  color: rgb(223, 60, 31);
+}
+.key-card-money{
+  text-decoration: solid;
+  color: rgb(223, 60, 31);
+  margin-left: 6px;
+}

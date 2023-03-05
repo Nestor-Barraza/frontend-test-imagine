@@ -9,10 +9,8 @@ import {
   Message,
   Segment,
 } from "semantic-ui-react";
-import { useSelector } from "react-redux";
-import { RootState } from "src/app/store";
 import { Constants } from "src/utils/";
-import { signInAction } from "../redux";
+import { signInAction } from "src/views";
 import { Alert, showAlertAction } from "src/components";
 
 interface FormValues {
@@ -26,14 +24,6 @@ const initialFormValues: FormValues = {
 };
 
 const SignIn = () => {
-  //Redux state
-  const {
-    general_events: {
-      user_credentials: { access_token },
-    },
-  }: {
-    general_events: { user_credentials: { access_token: string } };
-  } = useSelector((state: RootState) => state);
 
   const goTo = useNavigate();
 
@@ -57,7 +47,7 @@ const SignIn = () => {
           formValues.password
         );
         if (responseLogin) {
-          goTo("/home");
+          goTo(Constants.HOME);
         }
         setIsSubmitting(false);
       }, 2000);
@@ -74,11 +64,11 @@ const SignIn = () => {
   };
 
   useEffect(() => {
-    if (access_token) {
+    if (localStorage.getItem("access_token")) {
       goTo(Constants.HOME);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [formValues, access_token]);
+  }, [formValues]);
 
   return (
     <Grid textAlign="center" style={{ height: "100vh" }} verticalAlign="middle">

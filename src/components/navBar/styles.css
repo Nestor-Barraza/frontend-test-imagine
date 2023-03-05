@@ -1,3 +1,5 @@
-.navBar-container{
-  
+.btn-menu{
+  position: absolute !important;
+  width: 100%;
+  bottom: 39px;
 }

@@ -1,4 +1,21 @@
 import { reducer as GeneralEventsReducer } from "./generalEventsSlice";
-import { signInAction, logOutAction } from "./generalEventsAction";
+import {
+  signInAction,
+  logOutAction,
+  getEnterprisesAction,
+  signUpAction,
+  getProductAction,
+  formaterMoney,
+  formatPhoneNumber
+} from "./generalEventsAction";
 
-export { GeneralEventsReducer, signInAction, logOutAction };
+export {
+  GeneralEventsReducer,
+  signInAction,
+  logOutAction,
+  getEnterprisesAction,
+  signUpAction,
+  getProductAction,
+  formaterMoney,
+  formatPhoneNumber
+};

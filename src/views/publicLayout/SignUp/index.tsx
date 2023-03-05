@@ -2,18 +2,21 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
   Button,
+  Card,
+  DropdownProps,
   Form,
+  FormInputProps,
   Grid,
   Header,
   Icon,
+  Label,
   Message,
   Segment,
 } from "semantic-ui-react";
-import { useSelector } from "react-redux";
-import { RootState } from "src/app/store";
 import { Constants } from "src/utils/";
 import { Alert, showAlertAction } from "src/components";
-
+import { signUpAction } from "src/views";
+import "./styles.css";
 interface FormValues {
   full_name: string;
   role: string;
@@ -32,15 +35,13 @@ const initialFormValues: FormValues = {
   confirmPassword: "",
 };
 
+const roleOptions = [
+  { key: "admin", text: "Admin", value: "admin" },
+  { key: "user", text: "User", value: "user" },
+];
+
 const SignUp = () => {
-  //Redux state
-  const {
-    general_events: {
-      user_credentials: { access_token },
-    },
-  }: {
-    general_events: { user_credentials: { access_token: string } };
-  } = useSelector((state: RootState) => state);
+  
 
   const goTo = useNavigate();
   const [formValues, setFormValues] = useState<FormValues>(initialFormValues);
@@ -66,15 +67,34 @@ const SignUp = () => {
         "error"
       );
     } else {
-      setTimeout(() => {
-        console.log(formValues);
+      setTimeout(async () => {
+        const responseSignUp = await signUpAction(
+          formValues.full_name,
+          formValues.role,
+          formValues.phone,
+          formValues.email,
+          formValues.password
+        );
+        if (responseSignUp) {
+          goTo(Constants.HOME);
+        }
         setIsSubmitting(false);
       }, 2000);
     }
   };
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
+  const handleChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+    data: FormInputProps
+  ) => {
+    const { name, value } = data;
+    setFormValues({ ...formValues, [name]: value });
+  };
+
+  const handleCheck = (
+    event: React.SyntheticEvent<HTMLElement, Event>,
+    { name, value }: DropdownProps
+  ) => {
     setFormValues({ ...formValues, [name]: value });
   };
 
@@ -87,11 +107,11 @@ const SignUp = () => {
   };
 
   useEffect(() => {
-    if (access_token) {
+    if (localStorage.getItem("access_token")) {
       goTo(Constants.HOME);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [formValues, access_token]);
+  }, [formValues]);
 
   return (
     <Grid textAlign="center" style={{ height: "100vh" }} verticalAlign="middle">
@@ -113,16 +133,26 @@ const SignUp = () => {
               value={formValues.full_name}
               onChange={handleChange}
             />
-            <Form.Input
-              fluid
-              icon="user"
-              iconPosition="left"
-              type="text"
-              name="role"
-              placeholder="Role"
-              value={formValues.role}
-              onChange={handleChange}
-            />
+            <Card.Group className="form-select">
+              <Label>
+                <Icon
+                  className="form-select-icon"
+                  name={
+                    formValues.role === "admin" ? "chess king" : "chess pawn"
+                  }
+                />
+              </Label>
+              <Form.Select
+                className="form-select-input"
+                fluid
+                options={roleOptions}
+                name="role"
+                placeholder="Select role"
+                value={formValues.role}
+                onChange={handleCheck}
+              />
+            </Card.Group>
+
             <Form.Input
               fluid
               icon="mail"
