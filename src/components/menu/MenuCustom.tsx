@@ -1,12 +1,32 @@
 import { FC } from "react";
-import { Icon, Menu } from "semantic-ui-react";
+import { Image, Menu } from "semantic-ui-react";
 import { useNavigate } from "react-router-dom";
 import { Constants } from "src/utils";
 import { logOutAction } from "src/views";
+import { useSelector } from "react-redux";
+import { RootState } from "src/app/store";
+import { BossPicture, EmployedPicture, HomeIcon, LogOutIcon } from "src/assets";
 import "./styles.css";
 
 const AlertComponent: FC = (): JSX.Element => {
+  //Redux state
+  const {
+    general_events: {
+      user_credentials: { role },
+    },
+  }: {
+    general_events: {
+      user_credentials: {
+        email: string;
+        full_name: string;
+        phone: string;
+        role: string;
+      };
+    };
+  } = useSelector((state: RootState) => state);
+  //Redirect hook
   const goTo = useNavigate();
+
   return (
     <>
       <Menu.Item
@@ -15,7 +35,7 @@ const AlertComponent: FC = (): JSX.Element => {
         }}
         as="a"
       >
-        <Icon name="home" />
+        <Image avatar src={HomeIcon} />
         Home
       </Menu.Item>
       <Menu.Item
@@ -24,19 +44,19 @@ const AlertComponent: FC = (): JSX.Element => {
         }}
         as="a"
       >
-        <Icon name="boxes" />
-        catalogue
+        <Image avatar src={role === "admin" ? BossPicture : EmployedPicture} />
+        Profile
       </Menu.Item>
 
       <Menu.Item
-      className="btn-menu"
+        className="menu-container"
         onClick={() => {
           goTo(Constants.SIGNIN);
           logOutAction();
         }}
         as="a"
       >
-        <Icon name="log out" />
+        <Image avatar src={LogOutIcon} />
         Log out
       </Menu.Item>
     </>

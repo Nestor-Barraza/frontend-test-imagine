@@ -32,7 +32,10 @@ ApiFetch.interceptors.request.use(
 
 // Interceptor response
 ApiFetch.interceptors.response.use(
-  (response) => response,
+  (response) => {
+    showNotificationAction(response.data);
+    return response;
+  },
   (error) => {
     //show error
     showNotificationAction(error.response.data);

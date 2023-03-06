@@ -20,7 +20,7 @@ const AlertComponent: FC = (): JSX.Element => {
     };
   } = useSelector((state: RootState) => state);
 
-  return <>{isVisibleAlert && <Message header={type} content={message} />}</>;
+  return <>{isVisibleAlert && <Message icon='warning' color='yellow' header={type} content={message} />}</>;
 };
 
 export default AlertComponent;

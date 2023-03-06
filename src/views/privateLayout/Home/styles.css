@@ -1,0 +1,56 @@
+.container-title {
+    margin-top: 40px !important;
+    margin-bottom: 40px !important;
+    text-align: center;
+}
+
+.card-description {
+    margin-bottom: 20px !important;
+}
+
+.container-home {
+    margin: 0 !important;
+    width: 100vw;
+    height: 100vh;
+    transform: translateX(-14px) translateY(-12px);
+    padding: 10px;
+    background: linear-gradient(135deg, #0d1629 0%, #292d46 100%);
+    background-size: 400% 400%;
+    animation: gradient 15s ease infinite;
+
+}
+.card-enterprise{
+    justify-content: center;
+   }
+.segment-home{
+  position: fixed !important;
+  width: 100vw;
+  transform: translateX(-10px) translateY(-30px);
+  bottom: 0;
+}
+
+.card-group-action{
+    justify-content: center;
+    position: absolute;
+    top: 10px;
+    right: 7px;
+}
+
+.bnt-add{
+    position: absolute;
+    top: 80px;
+    right: 20px;
+}
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}

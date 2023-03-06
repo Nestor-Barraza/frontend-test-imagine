@@ -6,7 +6,11 @@ import {
   signUpAction,
   getProductAction,
   formaterMoney,
-  formatPhoneNumber
+  formatPhoneNumber,
+  getEnterpriseByNITAction,
+  editEnterpriseAction,
+  createEnterpriseAction,
+  deleteEnterpriseAction 
 } from "./generalEventsAction";
 
 export {
@@ -17,5 +21,9 @@ export {
   signUpAction,
   getProductAction,
   formaterMoney,
-  formatPhoneNumber
+  formatPhoneNumber,
+  getEnterpriseByNITAction,
+  editEnterpriseAction,
+  createEnterpriseAction,
+  deleteEnterpriseAction 
 };

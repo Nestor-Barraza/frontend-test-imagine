@@ -1,0 +1,32 @@
+.EmailForm {
+  text-align: center;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ui.form .fields input:focus,
+.ui.form .fields textarea:focus {
+  border-color: #2185d0 !important;
+  box-shadow: none !important;
+}
+
+.ui.form .fields input:hover,
+.ui.form .fields textarea:hover {
+  border-color: #c5c5c5 !important;
+  transition: all 0.3s ease;
+}
+
+.ui.form button[type="submit"] {
+  background-color: #2185d0 !important;
+  color: #ffffff !important;
+  transition: all 0.3s ease;
+  margin-top: 2rem;
+}
+
+.ui.form button[type="submit"]:hover {
+  background-color: #ffffff !important;
+  color: #2185d0 !important;
+  transition: all 0.3s ease;
+}

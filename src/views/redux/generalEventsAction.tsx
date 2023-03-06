@@ -7,10 +7,9 @@ import {
   getProduct,
 } from "./generalEventsSlice";
 import { store } from "src/app/store";
-
 //[Private layout]
 
-//Get enterprise
+//Get enterprises
 export const getEnterprisesAction = async () => {
   try {
     const { data } = await ApiFetch.get("/enterprise/");
@@ -20,7 +19,7 @@ export const getEnterprisesAction = async () => {
     console.log(error);
   }
 };
-//Get enterprise
+//Get Product
 export const getProductAction = async (NIT: string) => {
   try {
     const {
@@ -34,6 +33,81 @@ export const getProductAction = async (NIT: string) => {
     console.log(error);
   }
 };
+
+//Get enterpriseby NIT
+export const getEnterpriseByNITAction = async (NIT: string) => {
+  try {
+    const { data } = await ApiFetch.get(`/enterprise/${NIT}`);
+
+    return data;
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
+};
+
+//Create enterprise
+export const createEnterpriseAction = async (
+  name: string,
+  address: string,
+  phone: string
+) => {
+  try {
+    const response = await ApiFetch.post("/enterprise/create", {
+      name,
+      address,
+      phone,
+    });
+
+    if (response) {
+      //Refresh list
+      getEnterprisesAction();
+    }
+    return true;
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
+};
+//Edit enterprise
+export const editEnterpriseAction = async (
+  NIT: string,
+  name: string,
+  address: string,
+  phone: string
+) => {
+  try {
+    const editEnterprise = await ApiFetch.put("/enterprise/update", {
+      name,
+      address,
+      phone,
+      NIT,
+    });
+    if (editEnterprise) {
+      getEnterprisesAction();
+    }
+
+    return true;
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
+};
+//delete enterprise
+export const deleteEnterpriseAction = async (NIT: string) => {
+  try {
+    const response = await ApiFetch.delete(`/enterprise/delete/${NIT}`);
+    if (response) {
+      //Refresh list
+      getEnterprisesAction();
+    }
+    return true;
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
+};
+
 //Log out
 export const logOutAction = async () => {
   try {
@@ -49,7 +123,6 @@ export const getTokenBody = (token: any) => {
     const payloadBase64 = token.split(".")[1];
     const payloadJson = atob(payloadBase64);
     const payload = JSON.parse(payloadJson);
-    console.log(payload);
     //Push credentials
     store.dispatch(
       getCredentials({
@@ -85,6 +158,8 @@ export const signInAction = async (email: string, password: string) => {
     return false;
   }
 };
+
+//sign up
 export const signUpAction = async (
   full_name: string,
   role: string,
@@ -113,7 +188,7 @@ export const signUpAction = async (
 export const formaterMoney = (price: number) => {
   return price.toLocaleString("es-CO", { style: "currency", currency: "COP" });
 };
-
+//Formater phone
 export const formatPhoneNumber = (phoneNumber: string) => {
   // Remove all non-numeric characters from the phone number
   const numericPhoneNumber = phoneNumber.replace(/\D/g, "");

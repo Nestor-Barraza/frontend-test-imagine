@@ -11,3 +11,7 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+:root {
+  --edit-btn-color: linear-gradient(135deg, #38595f 0%, #5c1b08 100%);
+}

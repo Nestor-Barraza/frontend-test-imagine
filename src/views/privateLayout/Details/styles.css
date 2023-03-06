@@ -1,12 +1,24 @@
-.key-card{
+.container-details {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  transform: translateX(-14px) translateY(-10px);
+  background: linear-gradient(135deg, #38595f 0%, #5c1b08 100%);
+}
+
+.key-card {
   text-decoration: solid;
   color: rgb(21, 130, 194);
 }
-.key-card-title{
+
+.key-card-title {
   text-decoration: solid;
   color: rgb(223, 60, 31);
 }
-.key-card-money{
+
+.key-card-money {
   text-decoration: solid;
   color: rgb(223, 60, 31);
   margin-left: 6px;

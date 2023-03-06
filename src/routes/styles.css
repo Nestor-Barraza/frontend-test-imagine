@@ -1,0 +1,10 @@
+.container-publiclayout {
+    display: flex;
+    justify-content: center;
+  
+    height: 100vh;
+    background: linear-gradient(135deg, #0d1629 0%, #292d46 100%);
+    background-size: 400% 400%;
+    animation: gradient 15s ease infinite;
+
+}

@@ -14,7 +14,7 @@ import {
   Segment,
 } from "semantic-ui-react";
 import { Constants } from "src/utils/";
-import { Alert, showAlertAction } from "src/components";
+import { Alert, Parallax, showAlertAction } from "src/components";
 import { signUpAction } from "src/views";
 import "./styles.css";
 interface FormValues {
@@ -41,8 +41,6 @@ const roleOptions = [
 ];
 
 const SignUp = () => {
-  
-
   const goTo = useNavigate();
   const [formValues, setFormValues] = useState<FormValues>(initialFormValues);
   const [showPassword, setShowPassword] = useState<boolean>(false);
@@ -50,8 +48,7 @@ const SignUp = () => {
     useState<boolean>(false);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  const handleSubmit = () => {
     setIsSubmitting(true);
     if (
       !formValues.email ||
@@ -63,7 +60,7 @@ const SignUp = () => {
     ) {
       setIsSubmitting(false);
       showAlertAction(
-        { name: "Campo vacío", message: "No pueden haber campos vacíos" },
+        { code: "Empty field", message: "There can be no empty fields" },
         "error"
       );
     } else {
@@ -114,113 +111,122 @@ const SignUp = () => {
   }, [formValues]);
 
   return (
-    <Grid textAlign="center" style={{ height: "100vh" }} verticalAlign="middle">
-      <Grid.Column style={{ maxWidth: 450 }}>
-        <Header as="h2" color="black" textAlign="center">
-          <Icon name="user plus" />
-          Create your account
-        </Header>
-        <Alert />
-        <Form size="large" onSubmit={handleSubmit}>
-          <Segment>
-            <Form.Input
-              fluid
-              icon="user"
-              iconPosition="left"
-              type="text"
-              name="full_name"
-              placeholder="Full name"
-              value={formValues.full_name}
-              onChange={handleChange}
-            />
-            <Card.Group className="form-select">
-              <Label>
-                <Icon
-                  className="form-select-icon"
-                  name={
-                    formValues.role === "admin" ? "chess king" : "chess pawn"
-                  }
-                />
-              </Label>
-              <Form.Select
-                className="form-select-input"
+    <>
+      <Parallax />
+
+      <Grid
+        textAlign="center"
+        className="signup-container"
+        verticalAlign="middle"
+      >
+        <Grid.Column style={{ maxWidth: 450 }}>
+          <Header as="h2" color="orange" textAlign="center">
+            <Icon name="user plus" />
+            Create your account
+          </Header>
+          <Alert />
+          <Form size="large">
+            <Segment>
+              <Form.Input
                 fluid
-                options={roleOptions}
-                name="role"
-                placeholder="Select role"
-                value={formValues.role}
-                onChange={handleCheck}
+                icon="user"
+                iconPosition="left"
+                type="text"
+                name="full_name"
+                placeholder="Full name"
+                value={formValues.full_name}
+                onChange={handleChange}
               />
-            </Card.Group>
+              <Card.Group className="form-select">
+                <Label>
+                  <Icon
+                    className="form-select-icon"
+                    name={
+                      formValues.role === "admin" ? "chess king" : "chess pawn"
+                    }
+                  />
+                </Label>
+                <Form.Select
+                  className="form-select-input"
+                  fluid
+                  options={roleOptions}
+                  name="role"
+                  placeholder="Select role"
+                  value={formValues.role}
+                  onChange={handleCheck}
+                />
+              </Card.Group>
 
-            <Form.Input
-              fluid
-              icon="mail"
-              iconPosition="left"
-              type="email"
-              name="email"
-              placeholder="E-mail address"
-              value={formValues.email}
-              onChange={handleChange}
-            />
-            <Form.Input
-              fluid
-              icon="phone"
-              iconPosition="left"
-              type="text"
-              name="phone"
-              placeholder="Phone number"
-              value={formValues.phone}
-              onChange={handleChange}
-            />
-            <Form.Input
-              fluid
-              icon="lock"
-              iconPosition="left"
-              type={showPassword ? "text" : "password"}
-              name="password"
-              placeholder="Password"
-              value={formValues.password}
-              onChange={handleChange}
-              action={{
-                icon: showPassword ? "eye slash" : "eye",
-                onClick: toggleShowPassword,
-              }}
-            />
-            <Form.Input
-              fluid
-              icon="lock"
-              iconPosition="left"
-              type={showConfirmPassword ? "text" : "password"}
-              name="confirmPassword"
-              placeholder="Confirm Password"
-              value={formValues.confirmPassword}
-              onChange={handleChange}
-              action={{
-                icon: showConfirmPassword ? "eye slash" : "eye",
-                onClick: toggleShowConfirmPassword,
-              }}
-            />
+              <Form.Input
+                fluid
+                icon="mail"
+                iconPosition="left"
+                type="email"
+                name="email"
+                placeholder="E-mail address"
+                value={formValues.email}
+                onChange={handleChange}
+              />
+              <Form.Input
+                fluid
+                icon="phone"
+                iconPosition="left"
+                type="text"
+                name="phone"
+                placeholder="Phone number"
+                value={formValues.phone}
+                onChange={handleChange}
+              />
+              <Form.Input
+                fluid
+                icon="lock"
+                iconPosition="left"
+                type={showPassword ? "text" : "password"}
+                name="password"
+                placeholder="Password"
+                value={formValues.password}
+                onChange={handleChange}
+                action={{
+                  icon: showPassword ? "eye slash" : "eye",
+                  onClick: toggleShowPassword,
+                }}
+              />
+              <Form.Input
+                fluid
+                icon="lock"
+                iconPosition="left"
+                type={showConfirmPassword ? "text" : "password"}
+                name="confirmPassword"
+                placeholder="Confirm Password"
+                value={formValues.confirmPassword}
+                onChange={handleChange}
+                action={{
+                  icon: showConfirmPassword ? "eye slash" : "eye",
+                  onClick: toggleShowConfirmPassword,
+                }}
+              />
 
-            <Button
-              color="black"
-              fluid
-              size="large"
-              type="submit"
-              loading={isSubmitting}
-              disabled={isSubmitting}
-            >
-              Sign Up
-            </Button>
-          </Segment>
-        </Form>
+              <Button
+                color="black"
+                fluid
+                size="large"
+                type="submit"
+                loading={isSubmitting}
+                disabled={isSubmitting}
+                onClick={handleSubmit}
+              >
+                Sign Up
+              </Button>
+            </Segment>
+          </Form>
 
-        <Message>
-          Do you already have an account?{" "}
-          <Link to={Constants.SIGNIN}>Sign In</Link>
-        </Message>
-      </Grid.Column>
-    </Grid>
+          <Message>
+            Do you already have an account?{" "}
+            <Link to={Constants.SIGNIN}>Sign In</Link>
+          </Message>
+        </Grid.Column>
+      </Grid>
+    </>
   );
 };
 export default SignUp;

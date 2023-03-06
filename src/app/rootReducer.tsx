@@ -5,6 +5,8 @@ import {
   SideBarCustomReducer,
   NavBarCustomReducer,
   NotificationCustomReducer,
+  ModalCustomReducer,
+  ConfirmReducer,
 } from "src/components/index";
 import { GeneralEventsReducer } from "src/views";
 
@@ -15,4 +17,6 @@ export const rootReducer = combineReducers({
   sideBar: SideBarCustomReducer,
   navBar: NavBarCustomReducer,
   general_events: GeneralEventsReducer,
+  modal: ModalCustomReducer,
+  confirm: ConfirmReducer,
 });

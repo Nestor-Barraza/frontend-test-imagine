@@ -1,5 +1,5 @@
 import { FC, ReactNode } from "react";
-import { Card, Image} from "semantic-ui-react";
+import { Card, Image } from "semantic-ui-react";
 import "./styles.css";
 
 const CardCustom: FC<{
@@ -8,9 +8,10 @@ const CardCustom: FC<{
   header: ReactNode;
   meta: ReactNode;
   extra: ReactNode;
-}> = ({ children, imageCard, header, meta, extra }): JSX.Element => {
+  fluid: boolean;
+}> = ({ children, imageCard, header, meta, extra, fluid }): JSX.Element => {
   return (
-    <Card className="card-custom">
+    <Card fluid={fluid} className="card-custom">
       <Image className="card-image" src={imageCard} wrapped ui={false} />
       <Card.Content>
         <Card.Header>{header}</Card.Header>

@@ -1,0 +1,13 @@
+.modal-container {
+ background: linear-gradient(135deg, #000000 0%, #1f0b05 100%) !important;
+ overflow: hidden !important;
+}
+.modal-content {
+ margin-top: 50px;
+ margin-bottom: 20px;
+ background: linear-gradient(135deg, #000000 0%, #1f0b05 100%) !important;
+}
+.btn-modal {
+    float: right;
+    transform: translateX(-5px) translateY(5px);
+}

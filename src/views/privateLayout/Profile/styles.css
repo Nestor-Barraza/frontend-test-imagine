@@ -1,12 +1,25 @@
-.key-card{
+.card-content-profile {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  transform: translateX(-14px) translateY(-10px);
+  background: var(--edit-btn-color);
+}
+
+
+.key-card {
   text-decoration: solid;
   color: rgb(21, 130, 194);
 }
-.key-card-title{
+
+.key-card-title {
   text-decoration: solid;
   color: rgb(223, 60, 31);
 }
-.key-card-money{
+
+.key-card-money {
   text-decoration: solid;
   color: rgb(223, 60, 31);
   margin-left: 6px;

@@ -7,7 +7,11 @@ import {
   signInAction,
   getProductAction,
   formaterMoney,
-  formatPhoneNumber
+  formatPhoneNumber,
+  getEnterpriseByNITAction,
+  editEnterpriseAction,
+  createEnterpriseAction,
+  deleteEnterpriseAction 
 } from "./redux";
 export {
   //Private layout
@@ -24,5 +28,9 @@ export {
   signInAction,
   getProductAction,
   formaterMoney,
-  formatPhoneNumber
+  formatPhoneNumber,
+  getEnterpriseByNITAction,
+  editEnterpriseAction,
+  createEnterpriseAction,
+  deleteEnterpriseAction 
 };

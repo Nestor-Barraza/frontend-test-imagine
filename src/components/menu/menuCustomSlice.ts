@@ -7,7 +7,7 @@ const initialState = {
 };
 
 const slice = createSlice({
-    name: 'navBar',
+    name: 'menu',
     initialState,
     reducers: {
        

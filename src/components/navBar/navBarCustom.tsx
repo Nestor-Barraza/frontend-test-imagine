@@ -1,5 +1,5 @@
 import { FC, useState, useEffect } from "react";
-import { Menu, Icon, Button } from "semantic-ui-react";
+import { Menu, Icon, Button, Image } from "semantic-ui-react";
 import { setVisible } from "src/components/sideBar/sideBarCustomAction";
 import { useNavigate } from "react-router-dom";
 import { handleItemClick } from "./navBarCustomAction";
@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "src/app/store";
 import { Constants } from "src/utils";
 import { logOutAction } from "src/views";
+import { BossPicture, EmployedPicture, HomeIcon, LogOutIcon } from "src/assets";
 import "./styles.css";
 
 const NavBarCustom: FC = (): JSX.Element => {
@@ -18,9 +19,13 @@ const NavBarCustom: FC = (): JSX.Element => {
   const {
     navBar: { hoverTab },
     sideBar: { visible },
+    general_events: {
+      user_credentials: { role },
+    },
   }: {
     navBar: { hoverTab: string };
     sideBar: { visible: boolean };
+    general_events: { user_credentials: { role: string } };
   } = useSelector((state: RootState) => state);
 
   // Redirect function
@@ -54,7 +59,7 @@ const NavBarCustom: FC = (): JSX.Element => {
     <Menu className="navBar-container" pointing secondary>
       <Menu.Item
         name="home"
-        icon="home"
+        icon={<Image avatar src={HomeIcon} />}
         active={hoverTab === "home"}
         onClick={() => {
           handleItemClick("home");
@@ -63,11 +68,16 @@ const NavBarCustom: FC = (): JSX.Element => {
       />
 
       <Menu.Item
-        name="catalogue"
-        icon="boxes"
-        active={hoverTab === "catalogue"}
+        name="Profile"
+        icon={
+          <Image
+            avatar
+            src={role === "admin" ? BossPicture : EmployedPicture}
+          />
+        }
+        active={hoverTab === "profile"}
         onClick={() => {
-          handleItemClick("catalogue");
+          handleItemClick("profile");
           goTo(Constants.PROFILE);
         }}
       />
@@ -86,8 +96,8 @@ const NavBarCustom: FC = (): JSX.Element => {
         ) : (
           <Menu.Item
             name="Log out"
-            icon="log out"
-            active={hoverTab === "catalogue"}
+            icon={<Image avatar src={LogOutIcon} />}
+            active={hoverTab === "log out"}
             onClick={() => {
               goTo(Constants.SIGNIN);
               logOutAction();
