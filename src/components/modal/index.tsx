@@ -3,7 +3,15 @@ import { Button, Modal } from "semantic-ui-react";
 import { openModalAction } from "./modalAction";
 import { useSelector } from "react-redux";
 import { RootState } from "src/app/store";
-import { EmailBox, DownloadPdf, FormEdit, Parallax, FormAdd } from "..";
+import {
+  EmailBox,
+  DownloadPdf,
+  FormEdit,
+  Parallax,
+  FormAdd,
+  FormAddProduct,
+  FormEditProduct,
+} from "..";
 import "./styles.css";
 const ModalCustom: FC = (): JSX.Element => {
   //Redux state
@@ -17,10 +25,14 @@ const ModalCustom: FC = (): JSX.Element => {
       <EmailBox />
     ) : modalChildrenRef === "download" ? (
       <DownloadPdf />
-    ) : modalChildrenRef === "edit" ? (
+    ) : modalChildrenRef === "edit-enterprise" ? (
       <FormEdit />
-    ) : modalChildrenRef === "create" ? (
+    ) : modalChildrenRef === "create-enterprise" ? (
       <FormAdd />
+    ) : modalChildrenRef === "create-product" ? (
+      <FormAddProduct />
+    ) : modalChildrenRef === "edit-product" ? (
+      <FormEditProduct />
     ) : (
       ""
     );

@@ -8,6 +8,7 @@ interface GeneralEventsState {
     role: string;
   };
   product: {
+    id: string;
     description: string;
     enterpriseNIT: string;
     price: number;
@@ -25,6 +26,7 @@ const initialState: GeneralEventsState = {
     role: "",
   },
   product: {
+    id: "",
     description: "",
     enterpriseNIT: "",
     price: 0,
@@ -69,9 +71,17 @@ const slice = createSlice({
     getProduct(
       state,
       {
-        payload: { description, enterpriseNIT, price, title, unitsAvailable },
+        payload: {
+          id,
+          description,
+          enterpriseNIT,
+          price,
+          title,
+          unitsAvailable,
+        },
       }: {
         payload: {
+          id: string;
           description: string;
           enterpriseNIT: string;
           price: number;
@@ -82,7 +92,39 @@ const slice = createSlice({
     ) {
       return {
         ...state,
-        product: { description, enterpriseNIT, price, title, unitsAvailable },
+        product: {
+          id,
+          description,
+          enterpriseNIT,
+          price,
+          title,
+          unitsAvailable,
+        },
+      };
+    },
+    updateProduct(
+      state,
+      {
+        payload: { description, price, title, unitsAvailable },
+      }: {
+        payload: {
+          description: string;
+          price: number;
+          title: string;
+          unitsAvailable: number;
+        };
+      }
+    ) {
+      return {
+        ...state,
+        product: {
+          id: state.product.id,
+          description,
+          enterpriseNIT: state.product.enterpriseNIT,
+          price,
+          title,
+          unitsAvailable,
+        },
       };
     },
   },
@@ -90,4 +132,5 @@ const slice = createSlice({
 
 export const { reducer } = slice;
 
-export const { getCredentials, getEnterprises, getProduct } = slice.actions;
+export const { getCredentials, getEnterprises, getProduct, updateProduct } =
+  slice.actions;

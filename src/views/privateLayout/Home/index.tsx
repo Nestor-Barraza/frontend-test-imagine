@@ -29,6 +29,7 @@ import {
 import {
   EnterprisePicture,
   IphonePicture,
+  MotorolaPicture,
   MovistarIcon,
   TigoIcon,
   WomIcon,
@@ -68,7 +69,7 @@ const Home: FC = (): JSX.Element => {
       <Button
         color="green"
         className="bnt-add"
-        onClick={() => openModalAction(true, "create", {})}
+        onClick={() => openModalAction(true, "create-enterprise", {})}
       >
         <Icon name="plus" />
         Create a enterprise
@@ -108,10 +109,20 @@ const Home: FC = (): JSX.Element => {
                     </Message>
                     <Card.Group className="card-group-action">
                       <BtnPopUp
+                        text="Create a product"
+                        icon="plus"
+                        color="green"
+                        action={() =>
+                          openModalAction(true, "create-product", item)
+                        }
+                      />
+                      <BtnPopUp
                         text="Edit"
                         icon="edit"
                         color="brown"
-                        action={() => openModalAction(true, "edit", item)}
+                        action={() =>
+                          openModalAction(true, "edit-enterprise", item)
+                        }
                       />
                       <BtnPopUp
                         text="Remove"
@@ -121,7 +132,8 @@ const Home: FC = (): JSX.Element => {
                           showConfirmAction(
                             true,
                             `Are you sure to remove ${item.name} enterprise fo the list?`,
-                            item.NIT
+                            item.NIT,
+                            "enterprise"
                           )
                         }
                       />
@@ -152,6 +164,8 @@ const Home: FC = (): JSX.Element => {
                                   src={
                                     article.title.includes("IPhone")
                                       ? IphonePicture
+                                      : article.title.includes("Motorola")
+                                      ? MotorolaPicture
                                       : XiaomiPicture
                                   }
                                   avatar
@@ -165,10 +179,20 @@ const Home: FC = (): JSX.Element => {
                     </Message>
                     <Card.Group className="card-group-action">
                       <BtnPopUp
+                        text="Create a product"
+                        icon="plus"
+                        color="green"
+                        action={() =>
+                          openModalAction(true, "create-product", item)
+                        }
+                      />
+                      <BtnPopUp
                         text="Edit"
                         icon="edit"
                         color="brown"
-                        action={() => openModalAction(true, "edit", item)}
+                        action={() =>
+                          openModalAction(true, "edit-enterprise", item)
+                        }
                       />
                       <BtnPopUp
                         text="Remove"
@@ -178,7 +202,8 @@ const Home: FC = (): JSX.Element => {
                           showConfirmAction(
                             true,
                             `Are you sure to remove ${item.name} enterprise of the list?`,
-                            item.NIT
+                            item.NIT,
+                            "enterprise"
                           )
                         }
                       />

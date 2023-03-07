@@ -11,6 +11,7 @@ import XiaomiPicture from "./pictures/xiaomiPicture.jpg";
 import BossPicture from "./pictures/bossPicture.jpg";
 import EmployedPicture from "./pictures/employedPicture.jpg";
 import EnterprisePicture from "./pictures/enterprisePicture.jpg";
+import MotorolaPicture from "./pictures/motorolaPicture.jpg";
 export {
   //icons
   MovistarIcon,
@@ -23,5 +24,6 @@ export {
   XiaomiPicture,
   BossPicture,
   EmployedPicture,
-  EnterprisePicture
+  EnterprisePicture,
+  MotorolaPicture
 };

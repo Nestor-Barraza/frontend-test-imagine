@@ -6,11 +6,6 @@ import Constants from "src/utils/constants";
 //Axios instance
 export const ApiFetch = axios.create({
   baseURL: Constanst.ENPOINT,
-  headers: {
-    Authorization: localStorage.getItem("access_token")
-      ? `Bearer ${localStorage.getItem("access_token")}`
-      : "",
-  },
 });
 
 // Interceptor request
@@ -41,8 +36,6 @@ ApiFetch.interceptors.response.use(
     showNotificationAction(error.response.data);
     showAlertAction(error.response.data, "error");
     if (error.response.status === 401) {
-      //Redirect
-      window.location.href = Constants.SIGNIN;
       localStorage.removeItem("access_token");
       localStorage.removeItem("refresh_token");
     }

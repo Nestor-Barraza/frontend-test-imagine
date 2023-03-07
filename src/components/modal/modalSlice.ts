@@ -3,7 +3,18 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   isModalOpen: false,
   modalChildrenRef: "",
-  objectInfo: { name: "", address: "", phone: "", NIT:'' },
+  objectInfo: {
+    name: "",
+    address: "",
+    phone: "",
+    NIT: "",
+    //Product props
+    id: "",
+    title: "",
+    description: "",
+    price: 0,
+    unitsAvailable: 0,
+  },
 };
 const slice = createSlice({
   name: "modal",

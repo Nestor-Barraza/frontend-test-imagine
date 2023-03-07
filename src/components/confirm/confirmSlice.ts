@@ -4,12 +4,14 @@ interface Payload {
   isVisibleConfirm: boolean;
   confirmObjectId: string;
   message: string;
+  element: string;
 }
 
 const initialState = {
   isVisibleConfirm: false,
   message: "Are you sure?",
   confirmObjectId: "",
+  element: "",
 };
 
 const slice = createSlice({
@@ -19,7 +21,7 @@ const slice = createSlice({
     showConfirm(
       state,
       {
-        payload: { isVisibleConfirm, confirmObjectId, message },
+        payload: { isVisibleConfirm, confirmObjectId, message, element },
       }: { payload: Payload }
     ) {
       return {
@@ -28,6 +30,7 @@ const slice = createSlice({
         isVisibleConfirm,
         confirmObjectId,
         message,
+        element,
       };
     },
   },

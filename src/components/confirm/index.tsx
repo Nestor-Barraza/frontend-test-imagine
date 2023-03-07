@@ -3,11 +3,11 @@ import { useSelector } from "react-redux";
 import { Confirm } from "semantic-ui-react";
 import { RootState } from "src/app/store";
 import { showConfirmAction } from "./confirmAction";
-import { deleteEnterpriseAction } from "src/views";
+import { deleteEnterpriseAction, deleteProductAction } from "src/views";
 
 const ConfirmCustom: FC = (): JSX.Element => {
   //Redux state
-  const { isVisibleConfirm, message, confirmObjectId } = useSelector(
+  const { isVisibleConfirm, message, confirmObjectId, element } = useSelector(
     (state: RootState) => state.confirm
   );
 
@@ -17,7 +17,15 @@ const ConfirmCustom: FC = (): JSX.Element => {
     if (confirmObjectId !== "") {
       const deleteEnterprise = await deleteEnterpriseAction(confirmObjectId);
       if (deleteEnterprise) {
-        showConfirmAction(false, "", "");
+        showConfirmAction(false, "", "", "");
+      }
+    }
+  };
+  const deleteProduct = async () => {
+    if (confirmObjectId !== "") {
+      const deleteEnterprise = await deleteProductAction(confirmObjectId);
+      if (deleteEnterprise) {
+        showConfirmAction(false, "", "", "");
       }
     }
   };
@@ -29,8 +37,14 @@ const ConfirmCustom: FC = (): JSX.Element => {
         content={message}
         cancelButton="Never mind"
         confirmButton="Let's do it"
-        onCancel={() => showConfirmAction(false, "", "")}
-        onConfirm={deleteEnterprise}
+        onCancel={() => showConfirmAction(false, "", "", "")}
+        onConfirm={() => {
+          if (element === "enterprise") {
+            deleteEnterprise();
+          } else {
+            deleteProduct();
+          }
+        }}
       />
     </div>
   );

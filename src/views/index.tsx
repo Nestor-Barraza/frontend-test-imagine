@@ -11,7 +11,10 @@ import {
   getEnterpriseByNITAction,
   editEnterpriseAction,
   createEnterpriseAction,
-  deleteEnterpriseAction 
+  deleteEnterpriseAction,
+  createProductAction,
+  editProductAction,
+  deleteProductAction
 } from "./redux";
 export {
   //Private layout
@@ -32,5 +35,8 @@ export {
   getEnterpriseByNITAction,
   editEnterpriseAction,
   createEnterpriseAction,
-  deleteEnterpriseAction 
+  deleteEnterpriseAction,
+  createProductAction,
+  editProductAction,
+  deleteProductAction
 };

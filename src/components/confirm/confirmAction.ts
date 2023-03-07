@@ -7,7 +7,8 @@ import { store } from "src/app/store";
 export const showConfirmAction = (
   isVisibleConfirm: boolean,
   message: string,
-  confirmObjectId: string
+  confirmObjectId: string,
+  element: string
 ) => {
   // Show alert
   store.dispatch(
@@ -15,6 +16,7 @@ export const showConfirmAction = (
       isVisibleConfirm,
       confirmObjectId,
       message,
+      element
     })
   );
 };

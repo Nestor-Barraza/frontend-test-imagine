@@ -4,7 +4,7 @@ import { FC, useEffect } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { Constants, View404 } from "src/utils/";
 import { Home, Profile, Details, SignIn, SignUp } from "src/views";
-import {  NotificationCustom } from "src/components";
+import { NotificationCustom } from "src/components";
 import { getTokenBody } from "src/views/redux/generalEventsAction";
 
 const RouterApp: FC = (): JSX.Element => {
@@ -27,7 +27,7 @@ const RouterApp: FC = (): JSX.Element => {
   return (
     <BrowserRouter>
       <NotificationCustom />
- 
+
       <Routes>
         {/* Private routes */}
         <Route path={Constants.HOME} element={<PrivateLayout />}>

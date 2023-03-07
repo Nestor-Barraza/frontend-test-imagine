@@ -23,3 +23,9 @@
   color: rgb(223, 60, 31);
   margin-left: 6px;
 }
+
+.btn-back{
+  position: absolute;
+  left: 10px;
+  top: 10px;
+}

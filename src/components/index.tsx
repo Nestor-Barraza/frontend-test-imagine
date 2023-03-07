@@ -13,6 +13,8 @@ import BtnPopUp from "./btnPopUp";
 import ConfirmCustom from "./confirm";
 import Parallax from "./parallax";
 import FormAdd from "./formAdd";
+import FormAddProduct from "./formAddProduct";
+import FormEditProduct from "./formEditProduct";
 // Reducers
 import { reducer as AlertReducer } from "./alert/alertSlice";
 import { reducer as MenuCustomReducer } from "./menu/menuCustomSlice";
@@ -46,6 +48,8 @@ export {
   ConfirmCustom,
   Parallax,
   FormAdd,
+  FormAddProduct,
+  FormEditProduct,
   // Reducers
   AlertReducer,
   MenuCustomReducer,

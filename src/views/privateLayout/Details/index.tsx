@@ -1,6 +1,11 @@
 import { FC, useEffect, useState } from "react";
-import { Button, CardContent, Loader } from "semantic-ui-react";
-import { CardCustom } from "src/components";
+import { Button, Card, CardContent, Loader } from "semantic-ui-react";
+import {
+  BtnPopUp,
+  CardCustom,
+  openModalAction,
+  showConfirmAction,
+} from "src/components";
 import { useSelector } from "react-redux";
 import { RootState } from "src/app/store";
 import { IphonePicture, XiaomiPicture } from "src/assets";
@@ -13,11 +18,13 @@ const Details: FC = (): JSX.Element => {
   //Redux state
   const {
     general_events: {
-      product: { description, enterpriseNIT, price, title, unitsAvailable },
+      product: { id, description, enterpriseNIT, price, title, unitsAvailable },
+      product,
     },
   }: {
     general_events: {
       product: {
+        id: string;
         description: string;
         enterpriseNIT: string;
         price: number;
@@ -41,32 +48,62 @@ const Details: FC = (): JSX.Element => {
 
   return (
     <CardContent className="container-details">
-      <Button icon='arrow left'/>
+      <Button
+        className="btn-back"
+        color="black"
+        onClick={() => goTo(Constants.HOME)}
+        icon="arrow left"
+      />
       {isLoading || !title ? (
         <Loader className="loader" active size="medium" />
       ) : (
-        <CardCustom
-          fluid={false}
-          header={<b className="key-card-title">{title}</b>}
-          imageCard={title.includes("IPhone") ? IphonePicture : XiaomiPicture}
-          children={
-            <CardContent>
-              <p>
-                <b className="key-card"> Description:</b> {description}
-                <br />
-                <b className="key-card"> Amount:</b> {unitsAvailable} <br />
-                <b className="key-card"> Enterprise NIT : </b> {enterpriseNIT}
-              </p>
-            </CardContent>
-          }
-          meta={<CardContent />}
-          extra={
-            <>
-              <b className="key-card">Price:</b>
-              <b className="key-card-money">{formaterMoney(price)}</b>
-            </>
-          }
-        />
+        <div>
+          <CardCustom
+            fluid={false}
+            header={<b className="key-card-title">{title}</b>}
+            imageCard={title.includes("IPhone") ? IphonePicture : XiaomiPicture}
+            children={
+              <CardContent>
+                <Card.Group className="card-group-action">
+                  <BtnPopUp
+                    text="Edit"
+                    icon="edit"
+                    color="brown"
+                    action={() =>
+                      openModalAction(true, "edit-product", product)
+                    }
+                  />
+                  <BtnPopUp
+                    text="Remove"
+                    icon="trash"
+                    color="red"
+                    action={() =>
+                      showConfirmAction(
+                        true,
+                        `Are you sure to remove ${title} enterprise of the list?`,
+                        id,
+                        'delete-product'
+                      )
+                    }
+                  />
+                </Card.Group>
+                <p>
+                  <b className="key-card"> Description:</b> {description}
+                  <br />
+                  <b className="key-card"> Amount:</b> {unitsAvailable} <br />
+                  <b className="key-card"> Enterprise NIT : </b> {enterpriseNIT}
+                </p>
+              </CardContent>
+            }
+            meta={<CardContent />}
+            extra={
+              <>
+                <b className="key-card">Price:</b>
+                <b className="key-card-money">{formaterMoney(price)}</b>
+              </>
+            }
+          />
+        </div>
       )}
     </CardContent>
   );

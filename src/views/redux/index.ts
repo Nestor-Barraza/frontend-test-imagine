@@ -10,7 +10,10 @@ import {
   getEnterpriseByNITAction,
   editEnterpriseAction,
   createEnterpriseAction,
-  deleteEnterpriseAction 
+  deleteEnterpriseAction,
+  createProductAction,
+  editProductAction,
+  deleteProductAction 
 } from "./generalEventsAction";
 
 export {
@@ -25,5 +28,8 @@ export {
   getEnterpriseByNITAction,
   editEnterpriseAction,
   createEnterpriseAction,
-  deleteEnterpriseAction 
+  deleteEnterpriseAction,
+  createProductAction,
+  editProductAction,
+  deleteProductAction 
 };

@@ -1,10 +1,11 @@
 //Libs
 
-import { ApiFetch } from "src/utils/";
+import { ApiFetch, Constants } from "src/utils/";
 import {
   getCredentials,
   getEnterprises,
   getProduct,
+  updateProduct,
 } from "./generalEventsSlice";
 import { store } from "src/app/store";
 //[Private layout]
@@ -19,20 +20,8 @@ export const getEnterprisesAction = async () => {
     console.log(error);
   }
 };
-//Get Product
-export const getProductAction = async (NIT: string) => {
-  try {
-    const {
-      data: { description, enterpriseNIT, price, title, unitsAvailable },
-    } = await ApiFetch.get(`/product/${NIT}`);
-    //Push product info
-    store.dispatch(
-      getProduct({ description, enterpriseNIT, price, title, unitsAvailable })
-    );
-  } catch (error) {
-    console.log(error);
-  }
-};
+
+//[Enterprise]
 
 //Get enterpriseby NIT
 export const getEnterpriseByNITAction = async (NIT: string) => {
@@ -45,7 +34,6 @@ export const getEnterpriseByNITAction = async (NIT: string) => {
     return false;
   }
 };
-
 //Create enterprise
 export const createEnterpriseAction = async (
   name: string,
@@ -93,13 +81,111 @@ export const editEnterpriseAction = async (
     return false;
   }
 };
-//delete enterprise
+//Delete enterprise
 export const deleteEnterpriseAction = async (NIT: string) => {
   try {
     const response = await ApiFetch.delete(`/enterprise/delete/${NIT}`);
     if (response) {
       //Refresh list
       getEnterprisesAction();
+    }
+    return true;
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
+};
+
+//[Product]
+
+//Get Product
+export const getProductAction = async (NIT: string) => {
+  try {
+    const {
+      data: { _id, description, enterpriseNIT, price, title, unitsAvailable },
+    } = await ApiFetch.get(`/product/${NIT}`);
+    //Push product info
+    store.dispatch(
+      getProduct({
+        id: _id,
+        description,
+        enterpriseNIT,
+        price,
+        title,
+        unitsAvailable,
+      })
+    );
+  } catch (error) {
+    console.log(error);
+  }
+};
+//Create Product
+export const createProductAction = async (
+  title: string,
+  description: string,
+  price: number,
+  unitsAvailable: number,
+  enterpriseNIT: string
+) => {
+  try {
+    const response = await ApiFetch.post("/product/", {
+      title,
+      description,
+      price,
+      unitsAvailable,
+      enterpriseNIT,
+    });
+    if (response) {
+      getEnterprisesAction();
+    }
+    return true;
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
+};
+//Edit Product
+export const editProductAction = async (
+  id: string,
+  title: string,
+  description: string,
+  price: number,
+  unitsAvailable: number
+) => {
+  try {
+    const response = await ApiFetch.put(`/product/${id}`, {
+      title,
+      description,
+      price,
+      unitsAvailable,
+    });
+
+    if (response) {
+      //Push product info
+      store.dispatch(
+        updateProduct({
+          description,
+          price,
+          title,
+          unitsAvailable,
+        })
+      );
+    }
+    return true;
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
+};
+//Delete product
+export const deleteProductAction = async (id: string) => {
+  try {
+    const response = await ApiFetch.delete(`/product/${id}`);
+    if (response) {
+      //Refresh list
+      getEnterprisesAction();
+      //Redirect
+      window.location.href = Constants.HOME;
     }
     return true;
   } catch (error) {
