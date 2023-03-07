@@ -32,9 +32,16 @@ ApiFetch.interceptors.response.use(
   },
   (error) => {
     //show error
-    showNotificationAction(error.response.data);
-    showAlertAction(error.response.data, "error");
+    if (error.code) {
+      showNotificationAction(error);
+      showAlertAction(error, "error");
+    } else {
+      showNotificationAction(error.response.data);
+      showAlertAction(error.response.data, "error");
+    }
+
     if (error.response.status === 401) {
+      error.headers.Authorization = "";
       localStorage.removeItem("access_token");
       localStorage.removeItem("refresh_token");
     }
