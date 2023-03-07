@@ -4,7 +4,7 @@ const Constants = Object.freeze({
   DETAILS: "details",
   SIGNIN: "/sign_in",
   SIGNUP: "/sign_up",
-  ENPOINT: 'https://34.205.65.107:443',
+  ENPOINT: process.env.REACT_APP_ENPOINT,
 });
 
 export default Constants;

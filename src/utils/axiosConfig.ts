@@ -1,7 +1,6 @@
 import Constanst from "src/utils/constants";
 import axios from "axios";
 import { showAlertAction, showNotificationAction } from "src/components";
-import Constants from "src/utils/constants";
 
 //Axios instance
 export const ApiFetch = axios.create({

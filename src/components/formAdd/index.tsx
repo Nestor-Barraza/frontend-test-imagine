@@ -77,12 +77,11 @@ const FormAdd = () => {
   return (
     <Grid
       textAlign="center"
-      className="form-edit-container"
       verticalAlign="middle"
     >
       <Grid.Column style={{ maxWidth: 450 }}>
-        <Header as="h2" color="black" textAlign="center">
-          <Icon name="plus" color="blue" />
+        <Header as="h2" color="green" textAlign="center">
+          <Icon  name="plus" color="blue" />
           Create a Enterprise
         </Header>
         <Alert />

@@ -153,7 +153,8 @@ export const editProductAction = async (
   unitsAvailable: number
 ) => {
   try {
-    const response = await ApiFetch.put(`/product/${id}`, {
+    const response = await ApiFetch.put("/product/update", {
+      id,
       title,
       description,
       price,

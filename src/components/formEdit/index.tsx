@@ -89,9 +89,9 @@ const FormEdit = () => {
   if (!objectInfo) return <Loader active size="medium" />;
 
   return (
-    <Grid textAlign="center" className="form-edit-container" verticalAlign="middle">
+    <Grid textAlign="center" verticalAlign="middle">
       <Grid.Column style={{ maxWidth: 450 }}>
-        <Header as="h2" color="black" textAlign="center">
+        <Header as="h2" color="green" textAlign="center">
           <Icon name="edit" color="blue" />
           Edit Enterprise
         </Header>

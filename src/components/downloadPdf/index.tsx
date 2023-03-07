@@ -43,8 +43,8 @@ const DownloadPdf: FC = (): JSX.Element => {
   return (
     <Grid textAlign="center" verticalAlign="middle">
       <Grid.Column style={{ maxWidth: 450 }}>
-        <Header as="h2" color="black" textAlign="center">
-          <Icon name="envelope outline" />
+        <Header as="h2" color="green" textAlign="center">
+          <Icon color="blue"  name="envelope outline" />
           Download product inventory
         </Header>
         <Alert />

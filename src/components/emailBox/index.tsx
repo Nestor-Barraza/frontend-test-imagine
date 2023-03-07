@@ -44,8 +44,8 @@ const EmailForm: React.FC = () => {
   return (
     <Grid textAlign="center" verticalAlign="middle">
       <Grid.Column style={{ maxWidth: 450 }}>
-        <Header as="h2" color="black" textAlign="center">
-          <Icon name="envelope outline" />
+        <Header as="h2" color="green" textAlign="center">
+          <Icon color="blue" name="envelope outline" />
           Send us an email
         </Header>
         <Form size="large" onSubmit={handleSubmit}>
