@@ -32,12 +32,12 @@ ApiFetch.interceptors.response.use(
   },
   (error) => {
     //show error
-    if (error.code) {
-      showNotificationAction(error);
-      showAlertAction(error, "error");
-    } else {
+    if (error.response.data) {
       showNotificationAction(error.response.data);
       showAlertAction(error.response.data, "error");
+    } else {
+      showNotificationAction(error);
+      showAlertAction(error, "error");
     }
 
     if (error.response.status === 401) {

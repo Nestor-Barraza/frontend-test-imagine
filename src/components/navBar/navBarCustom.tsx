@@ -11,8 +11,8 @@ import { BossPicture, EmployedPicture, HomeIcon, LogOutIcon } from "src/assets";
 import "./styles.css";
 
 const NavBarCustom: FC = (): JSX.Element => {
+  
   // Router hook
-
   const redirectInstance = useNavigate();
 
   //Redux state

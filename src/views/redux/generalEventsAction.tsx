@@ -8,12 +8,32 @@ import {
   updateProduct,
 } from "./generalEventsSlice";
 import { store } from "src/app/store";
+
+//Fetch routes
+const {
+  FETCH_ROUTES: {
+    //Public routes
+    SIGN_IN,
+    SIGN_UP,
+    // Private routes
+
+    //[Enterprise]
+    URL_BASE_ENTERPRISE,
+    CREATE_ENTERPRISE,
+    UPDATE_ENTERPRISE,
+    DELETE_ENTERPRISE,
+    //[Product]
+    URL_BASE_PRODUCT,
+    UPDATE_PRODUCT,
+  },
+} = Constants;
+
 //[Private layout]
 
 //Get enterprises
 export const getEnterprisesAction = async () => {
   try {
-    const { data } = await ApiFetch.get("/enterprise/");
+    const { data } = await ApiFetch.get(URL_BASE_ENTERPRISE);
 
     store.dispatch(getEnterprises({ enterprises: data }));
   } catch (error) {
@@ -26,7 +46,7 @@ export const getEnterprisesAction = async () => {
 //Get enterpriseby NIT
 export const getEnterpriseByNITAction = async (NIT: string) => {
   try {
-    const { data } = await ApiFetch.get(`/enterprise/${NIT}`);
+    const { data } = await ApiFetch.get(`${URL_BASE_ENTERPRISE}${NIT}`);
 
     return data;
   } catch (error) {
@@ -41,7 +61,7 @@ export const createEnterpriseAction = async (
   phone: string
 ) => {
   try {
-    const response = await ApiFetch.post("/enterprise/create", {
+    const response = await ApiFetch.post(CREATE_ENTERPRISE, {
       name,
       address,
       phone,
@@ -65,7 +85,7 @@ export const editEnterpriseAction = async (
   phone: string
 ) => {
   try {
-    const editEnterprise = await ApiFetch.put("/enterprise/update", {
+    const editEnterprise = await ApiFetch.put(UPDATE_ENTERPRISE, {
       name,
       address,
       phone,
@@ -84,7 +104,7 @@ export const editEnterpriseAction = async (
 //Delete enterprise
 export const deleteEnterpriseAction = async (NIT: string) => {
   try {
-    const response = await ApiFetch.delete(`/enterprise/delete/${NIT}`);
+    const response = await ApiFetch.delete(`${DELETE_ENTERPRISE}${NIT}`);
     if (response) {
       //Refresh list
       getEnterprisesAction();
@@ -103,7 +123,7 @@ export const getProductAction = async (NIT: string) => {
   try {
     const {
       data: { _id, description, enterpriseNIT, price, title, unitsAvailable },
-    } = await ApiFetch.get(`/product/${NIT}`);
+    } = await ApiFetch.get(`${URL_BASE_PRODUCT}${NIT}`);
     //Push product info
     store.dispatch(
       getProduct({
@@ -128,7 +148,7 @@ export const createProductAction = async (
   enterpriseNIT: string
 ) => {
   try {
-    const response = await ApiFetch.post("/product/", {
+    const response = await ApiFetch.post(URL_BASE_PRODUCT, {
       title,
       description,
       price,
@@ -153,7 +173,7 @@ export const editProductAction = async (
   unitsAvailable: number
 ) => {
   try {
-    const response = await ApiFetch.put("/product/update", {
+    const response = await ApiFetch.put(UPDATE_PRODUCT, {
       id,
       title,
       description,
@@ -181,7 +201,7 @@ export const editProductAction = async (
 //Delete product
 export const deleteProductAction = async (id: string) => {
   try {
-    const response = await ApiFetch.delete(`/product/${id}`);
+    const response = await ApiFetch.delete(`${URL_BASE_PRODUCT}${id}`);
     if (response) {
       //Refresh list
       getEnterprisesAction();
@@ -229,7 +249,7 @@ export const signInAction = async (email: string, password: string) => {
   try {
     const {
       data: { access_token, refresh_token },
-    } = await ApiFetch.post("/sign-in", {
+    } = await ApiFetch.post(SIGN_IN, {
       email,
       password,
     });
@@ -255,14 +275,13 @@ export const signUpAction = async (
   password: string
 ) => {
   try {
-    const response = await ApiFetch.post("/sign-up", {
+    await ApiFetch.post(SIGN_UP, {
       full_name,
       role,
       phone,
       email,
       password,
     });
-    console.log(response);
     return true;
   } catch (error) {
     console.log(error);
