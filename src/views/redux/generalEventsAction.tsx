@@ -299,10 +299,6 @@ export const formatPhoneNumber = (phoneNumber: string) => {
   // Remove all non-numeric characters from the phone number
   const numericPhoneNumber = phoneNumber.replace(/\D/g, "");
 
-  // Check if the phone number length is correct
-  if (numericPhoneNumber.length !== 10) {
-    throw new Error("Invalid phone number");
-  }
 
   // Divide the phone number into its corresponding parts
   const areaCode = numericPhoneNumber.substring(0, 3);

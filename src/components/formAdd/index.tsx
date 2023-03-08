@@ -11,9 +11,15 @@ import {
 } from "semantic-ui-react";
 import { Alert, openModalAction, showAlertAction } from "src/components";
 import { createEnterpriseAction } from "src/views";
-import "./styles.css";
 import { useSelector } from "react-redux";
 import { RootState } from "src/app/store";
+import { Constants } from "src/utils";
+import "./styles.css";
+
+//Import validations
+const {
+  FORM_VALIDATIONS: { PHONE_REGEX },
+} = Constants;
 interface FormValues {
   name: string;
   address: string;
@@ -21,8 +27,6 @@ interface FormValues {
 }
 
 const FormAdd = () => {
- 
-
   //Redux state
 
   //Redux state
@@ -47,19 +51,29 @@ const FormAdd = () => {
         { code: "Empty field", message: "There can be no empty fields" },
         "error"
       );
-    } else {
-      setTimeout(async () => {
-        // go to create
-        const createEnterprise = await createEnterpriseAction(
-          formValues.name,
-          formValues.address,
-          formValues.phone
-        );
-        if (createEnterprise) {
-          openModalAction(false, "", {});
-        }
+      if (!PHONE_REGEX.test(formValues.phone)) {
         setIsSubmitting(false);
-      }, 2000);
+        showAlertAction(
+          {
+            code: "Invalid content field",
+            message: "Please enter a valid phone number. Please try again",
+          },
+          "error"
+        );
+      } else {
+        setTimeout(async () => {
+          // go to create
+          const createEnterprise = await createEnterpriseAction(
+            formValues.name,
+            formValues.address,
+            formValues.phone
+          );
+          if (createEnterprise) {
+            openModalAction(false, "", {});
+          }
+          setIsSubmitting(false);
+        }, 2000);
+      }
     }
   }; //Handle change
   const handleChange = (
@@ -75,13 +89,10 @@ const FormAdd = () => {
   if (!objectInfo) return <Loader active size="medium" />;
 
   return (
-    <Grid
-      textAlign="center"
-      verticalAlign="middle"
-    >
+    <Grid textAlign="center" verticalAlign="middle">
       <Grid.Column style={{ maxWidth: 450 }}>
         <Header as="h2" color="green" textAlign="center">
-          <Icon  name="plus" color="blue" />
+          <Icon name="plus" color="blue" />
           Create a Enterprise
         </Header>
         <Alert />

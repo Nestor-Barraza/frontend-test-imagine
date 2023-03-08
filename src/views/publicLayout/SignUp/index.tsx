@@ -17,6 +17,11 @@ import { Constants } from "src/utils/";
 import { Alert, Parallax, showAlertAction } from "src/components";
 import { signUpAction } from "src/views";
 import "./styles.css";
+
+//Import validations
+const {
+  FORM_VALIDATIONS: { PASSWORD_REGEX, PHONE_REGEX },
+} = Constants;
 interface FormValues {
   full_name: string;
   role: string;
@@ -50,33 +55,86 @@ const SignUp = () => {
 
   const handleSubmit = () => {
     setIsSubmitting(true);
-    if (
-      !formValues.email ||
-      !formValues.password ||
-      !formValues.phone ||
-      !formValues.role ||
-      !formValues.full_name ||
-      !formValues.confirmPassword
-    ) {
-      setIsSubmitting(false);
-      showAlertAction(
-        { code: "Empty field", message: "There can be no empty fields" },
-        "error"
-      );
-    } else {
-      setTimeout(async () => {
-        const responseSignUp = await signUpAction(
-          formValues.full_name,
-          formValues.role,
-          formValues.phone,
-          formValues.email,
-          formValues.password
-        );
-        if (responseSignUp) {
-          goTo(Constants.HOME);
+    switch (true) {
+      case !formValues.email ||
+        !formValues.password ||
+        !formValues.phone ||
+        !formValues.role ||
+        !formValues.full_name ||
+        !formValues.confirmPassword:
+        // eslint-disable-next-line no-lone-blocks
+        {
+          setIsSubmitting(false);
+          showAlertAction(
+            { code: "Empty field", message: "There can be no empty fields" },
+            "error"
+          );
         }
-        setIsSubmitting(false);
-      }, 2000);
+
+        break;
+
+      case !PHONE_REGEX.test(formValues.phone):
+        // eslint-disable-next-line no-lone-blocks
+        {
+          setIsSubmitting(false);
+          showAlertAction(
+            {
+              code: "Invalid content field",
+              message: "Please enter a valid phone number. Please try again",
+            },
+            "error"
+          );
+        }
+
+        break;
+      case !PASSWORD_REGEX.test(formValues.password):
+        // eslint-disable-next-line no-lone-blocks
+        {
+          setIsSubmitting(false);
+          showAlertAction(
+            {
+              code: "Invalid password",
+              message:
+                "Your password must be at least 8 characters long and include at least one uppercase letter, one lowercase letter, one digit, and one special character (!@#$%^&*). Please try again",
+            },
+            "error"
+          );
+        }
+
+        break;
+      case formValues.password !== formValues.confirmPassword:
+        // eslint-disable-next-line no-lone-blocks
+        {
+          setIsSubmitting(false);
+          showAlertAction(
+            {
+              code: "Password no match",
+              message: "The password and confirmPassword does not match",
+            },
+            "error"
+          );
+        }
+
+        break;
+
+      default:
+        // eslint-disable-next-line no-lone-blocks
+        {
+          setTimeout(async () => {
+            const responseSignUp = await signUpAction(
+              formValues.full_name,
+              formValues.role,
+              formValues.phone,
+              formValues.email,
+              formValues.password
+            );
+            if (responseSignUp) {
+              goTo(Constants.HOME);
+            }
+            setIsSubmitting(false);
+          }, 2000);
+        }
+        break;
     }
   };
 
@@ -171,7 +229,7 @@ const SignUp = () => {
                 fluid
                 icon="phone"
                 iconPosition="left"
-                type="text"
+                type="number"
                 name="phone"
                 placeholder="Phone number"
                 value={formValues.phone}

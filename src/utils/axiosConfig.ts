@@ -41,9 +41,9 @@ ApiFetch.interceptors.response.use(
     }
 
     if (error.response.status === 401) {
-      error.headers.Authorization = "";
-      localStorage.removeItem("access_token");
-      localStorage.removeItem("refresh_token");
+      error.config.headers.Authorization = "";
+      localStorage.clear();
+      window.location.href = Constanst.SIGNIN;
     }
     return Promise.reject(error);
   }

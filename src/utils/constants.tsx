@@ -18,6 +18,15 @@ const Constants = Object.freeze({
     UPDATE_ENTERPRISE: "/enterprise/update",
     DELETE_ENTERPRISE: "/enterprise/delete/",
   },
+  FORM_VALIDATIONS: {
+    //Email Validation
+    REGEX_EMAIL: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
+    //Password Validation
+    PASSWORD_REGEX:
+      /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])(?=.*[a-zA-Z]).{8,}$/,
+    //Phone Validation
+    PHONE_REGEX: /^(\+)?[1-9]\d{8,13}$/,
+  },
   ENPOINT: process.env.REACT_APP_ENPOINT,
 });
 
