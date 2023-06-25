@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import { Alert, openModalAction, showAlertAction } from "src/components";
 import { editProductAction } from "src/views";
